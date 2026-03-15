@@ -26,6 +26,7 @@ function App() {
   const [theme, setTheme] = useState('dark');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -46,14 +47,24 @@ function App() {
   }, [activeCategory, searchQuery]);
 
   return (
-    <div className="app-container flex">
+    <div className="app-container flex min-h-screen">
       <Sidebar 
         activeCategory={activeCategory} 
         setActiveCategory={setActiveCategory} 
         setSearchQuery={setSearchQuery}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
       
-      <main className="flex-1 min-h-screen bg-main relative">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <main className="flex-1 min-h-screen bg-main relative flex flex-col">
         <Header 
           searchQuery={searchQuery} 
           setSearchQuery={setSearchQuery} 
@@ -62,6 +73,7 @@ function App() {
           onToggleTechStack={() => setIsTechStackOpen(true)}
           viewMode={viewMode}
           setViewMode={setViewMode}
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
         
         <div className="content-area p-8 pt-6">

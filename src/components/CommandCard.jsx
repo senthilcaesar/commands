@@ -35,11 +35,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
           {copied ? <Check size={16} /> : <Copy size={16} />}
         </button>
 
-        {copied && (
-          <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg animate-bounce z-10">
-            Copied!
-          </div>
-        )}
+
       </div>
     );
   }
@@ -71,11 +67,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
         </div>
       </div>
 
-      {copied && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg animate-bounce">
-          Copied to clipboard!
-        </div>
-      )}
+
     </div>
   );
 };
