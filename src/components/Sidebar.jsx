@@ -24,13 +24,19 @@ const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, on
           }}
           title="Go to Home"
         >
-          <div className="flex items-center gap-2 group-hover:translate-x-0.5 transition-transform duration-300">
-            <Bookmark className="text-blue-500 flex-shrink-0" size={24} strokeWidth={2.5} />
-            <span className="gradient-text text-xl font-bold whitespace-nowrap overflow-hidden transition-all duration-300">CommandCentral</span>
+          <div className="flex items-center gap-1.5 sm:gap-2 group-hover:translate-x-0.5 transition-transform duration-300">
+            <Bookmark className="text-blue-500 flex-shrink-0" size={20} sm={24} strokeWidth={2.5} />
+            <span className="gradient-text text-lg sm:text-xl font-bold whitespace-nowrap overflow-hidden transition-all duration-300">CommandCentral</span>
           </div>
         </button>
         
-
+        <button 
+          onClick={onClose}
+          className="p-2 -mr-2 text-dim hover:text-white md:hidden"
+          title="Close Sidebar"
+        >
+          <X size={20} />
+        </button>
       </div>
       
       <nav className="sidebar-nav px-4">
