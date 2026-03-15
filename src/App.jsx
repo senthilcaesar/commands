@@ -64,7 +64,7 @@ function App() {
           setViewMode={setViewMode}
         />
         
-        <div className="content-area p-8 pt-28">
+        <div className="content-area p-8 pt-6">
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-end mb-10">
               <div>
