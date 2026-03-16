@@ -63,12 +63,19 @@ function App() {
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
+          className="fixed inset-0 bg-black/50 z-[60] md:hidden backdrop-blur-sm"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
-      <main className="flex-1 min-h-screen bg-main relative flex flex-col">
+      <main 
+        className="flex-1 min-h-screen bg-main relative flex flex-col"
+        onClick={() => {
+          if (isSidebarOpen && window.innerWidth <= 768) {
+            setIsSidebarOpen(false);
+          }
+        }}
+      >
         <Header 
           searchQuery={searchQuery} 
           setSearchQuery={setSearchQuery} 

@@ -39,7 +39,10 @@ const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, on
           {categories.map((cat) => (
             <li key={cat.id}>
               <button
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  if (window.innerWidth <= 768) onClose();
+                }}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
                   activeCategory === cat.id 
                     ? 'bg-blue-500/10 text-white font-medium' 
