@@ -31,6 +31,13 @@ const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, on
             </div>
           </div>
         </button>
+        <button 
+          className="md:hidden p-1.5 text-dim hover:text-white hover:bg-white/5 rounded-lg transition-colors flex-shrink-0 ml-4"
+          onClick={onClose}
+          aria-label="Close Sidebar"
+        >
+          <X size={20} />
+        </button>
       </div>
       
       <nav className="sidebar-nav px-4">

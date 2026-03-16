@@ -286,7 +286,7 @@ button {
   .sm\:flex { display: flex !important; }
   .sm\:block { display: block !important; }
 }
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .md\:hidden { display: none !important; }
 }
 .ml-6 { margin-left: 1.5rem; }
