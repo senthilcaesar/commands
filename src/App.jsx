@@ -6,31 +6,35 @@ import CommandCard from './components/CommandCard';
 import { Terminal as TerminalIcon } from 'lucide-react';
 
 const DATA = [
-  { id: 1, category: 'claude', command: 'List mcp servers', snippet: 'claude mcp list', description: 'Displays all MCP (Model Context Protocol) servers currently configured (~/.claude.json) in Claude Code.' },
-  { id: 2, category: 'linux', command: 'find and delete', snippet: 'find . -name "*.log" -type f -delete', description: 'Recursively search for and delete all .log files in the current directory and subdirectories.' },
-  { id: 3, category: 'git', command: 'undo last commit', snippet: 'git reset --soft HEAD~1', description: 'Revert the most recent commit while keeping the changes staged in your local workspace.' },
-  { id: 4, category: 'npm', command: 'clean install', snippet: 'rm -rf node_modules && npm install', description: 'Reliably refresh project dependencies by deleting the modules folder and reinstalling.' },
-  { id: 5, category: 'cloud', command: 'gemini generate', snippet: 'gemini generate "Explain quantum computing"', description: 'Generate a text response using the Gemini AI CLI for a specific prompt.' },
-  { id: 6, category: 'build', command: 'github action bypass', snippet: 'git commit -m "update [skip ci]"', description: 'Prevent a GitHub Action workflow from triggering for a specific commit.' },
-  { id: 7, category: 'linux', command: 'search process by port', snippet: 'lsof -i :8080', description: 'Identity which process is currently listening on port 8080.' },
-  { id: 8, category: 'git', command: 'squash commits', snippet: 'git rebase -i HEAD~3', description: 'Interactively combine the last three commits into a single, cleaner commit.' },
-  { id: 9, category: 'claude', command: 'claude skills init', snippet: 'claude skills init my-new-skill', description: 'Initialize a new local skill project for the Claude agent.' },
-  { id: 10, category: 'npm', command: 'check for updates', snippet: 'npm outdated', description: 'List all locally installed packages that have newer versions available on the registry.' },
-  { id: 11, category: 'build', command: 'docker prune', snippet: 'docker system prune -a --volumes', description: 'Remove all unused containers, networks, images, and volumes to free up disk space.' },
-  { id: 12, category: 'linux', command: 'watch command', snippet: 'watch -n 1 "ls -lh"', description: 'Execute a command repeatedly at regular intervals and show the output in real-time.' },
+  { id: 1, category: 'claude', link: 'https://code.claude.com/docs/en/mcp', command: 'List mcp servers', snippet: 'claude mcp list', description: 'Displays all MCP (Model Context Protocol) servers currently configured (~/.claude.json) in Claude Code.' },
+  { id: 9, category: 'claude', link: 'https://ollama.com/library/glm-4.7', command: 'GLM-4.7', snippet: 'ollama launch claude --model glm-4.7:cloud', description: 'Launch Claude Code using GLM-4.7 model hosted in the cloud via Ollama.' },
+  { id: 2, category: 'linux', link: '', command: 'find and delete', snippet: 'find . -name "*.log" -type f -delete', description: 'Recursively search for and delete all .log files in the current directory and subdirectories.' },
+  { id: 3, category: 'git', link: '', command: 'undo last commit', snippet: 'git reset --soft HEAD~1', description: 'Revert the most recent commit while keeping the changes staged in your local workspace.' },
+  { id: 4, category: 'npm', link: '', command: 'clean install', snippet: 'rm -rf node_modules && npm install', description: 'Reliably refresh project dependencies by deleting the modules folder and reinstalling.' },
+  { id: 5, category: 'cloud', link: '', command: 'gemini generate', snippet: 'gemini generate "Explain quantum computing"', description: 'Generate a text response using the Gemini AI CLI for a specific prompt.' },
+  { id: 6, category: 'build', link: '', command: 'github action bypass', snippet: 'git commit -m "update [skip ci]"', description: 'Prevent a GitHub Action workflow from triggering for a specific commit.' },
+  { id: 7, category: 'linux', link: '', command: 'search process by port', snippet: 'lsof -i :8080', description: 'Identity which process is currently listening on port 8080.' },
+  { id: 8, category: 'git', link: '', command: 'squash commits', snippet: 'git rebase -i HEAD~3', description: 'Interactively combine the last three commits into a single, cleaner commit.' },
+  { id: 10, category: 'npm', link: '', command: 'check for updates', snippet: 'npm outdated', description: 'List all locally installed packages that have newer versions available on the registry.' },
+  { id: 11, category: 'build', link: '', command: 'docker prune', snippet: 'docker system prune -a --volumes', description: 'Remove all unused containers, networks, images, and volumes to free up disk space.' },
+  { id: 12, category: 'linux', link: '', command: 'watch command', snippet: 'watch -n 1 "ls -lh"', description: 'Execute a command repeatedly at regular intervals and show the output in real-time.' },
 ];
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => localStorage.getItem('sidebar') !== 'collapsed');
 
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  React.useEffect(() => {
+    localStorage.setItem('sidebar', isSidebarOpen ? 'open' : 'collapsed');
+  }, [isSidebarOpen]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -47,7 +51,7 @@ function App() {
   }, [activeCategory, searchQuery]);
 
   return (
-    <div className="app-container flex min-h-screen">
+    <div className={`app-container flex min-h-screen ${!isSidebarOpen ? 'sidebar-collapsed' : 'sidebar-open'}`}>
       <Sidebar 
         activeCategory={activeCategory} 
         setActiveCategory={setActiveCategory} 
@@ -74,6 +78,7 @@ function App() {
           viewMode={viewMode}
           setViewMode={setViewMode}
           onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          isSidebarOpen={isSidebarOpen}
         />
         
         <div className="content-area p-8 pt-6">

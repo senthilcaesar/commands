@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Copy, Check, ExternalLink } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 
 const CommandCard = ({ command, viewMode = 'grid' }) => {
-  const { id, category, command: cmdText, snippet, description } = command;
+  const { id, category, command: cmdText, snippet, description, link } = command;
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -18,9 +18,13 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
           <span className="text-[9px] tracking-wider text-blue-400 font-bold">{category}</span>
         </div>
         
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-text-primary text-sm truncate">{cmdText}</h3>
-          <p className="text-secondary text-[11px] truncate">{description}</p>
+        <div className="flex-1 min-w-0 flex flex-col justify-center">
+          {link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="font-semibold text-orange hover:text-orange-dark text-sm truncate block transition-colors w-fit" style={{ textDecoration: 'none' }}>{cmdText}</a>
+          ) : (
+            <h3 className="font-semibold text-text-primary text-sm truncate">{cmdText}</h3>
+          )}
+          <p className="text-secondary text-[11px] truncate mt-0.5">{description}</p>
         </div>
 
         <div className="flex-none bg-code rounded-lg px-3 py-1.5 border border-white/5 max-w-[30%] overflow-hidden">
@@ -45,7 +49,11 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
       <div className="flex justify-between items-start">
         <div className="flex flex-col gap-1">
           <span className="text-[9px] tracking-wider text-blue-400 font-bold">{category}</span>
-          <h3 className="font-semibold text-text-primary leading-tight">{cmdText}</h3>
+          {link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="font-semibold text-orange hover:text-orange-dark leading-tight transition-colors block w-fit" style={{ textDecoration: 'none' }}>{cmdText}</a>
+          ) : (
+            <h3 className="font-semibold text-text-primary leading-tight">{cmdText}</h3>
+          )}
         </div>
         <button 
           onClick={handleCopy}
@@ -62,9 +70,6 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
 
       <div className="snippet-block bg-code rounded-xl p-4 border border-white/5 relative group">
         <code className="text-xs text-code break-all select-all">{snippet}</code>
-        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-           <ExternalLink size={12} className="text-dim" />
-        </div>
       </div>
 
 

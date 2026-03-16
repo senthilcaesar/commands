@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Search, Command, LayoutGrid, List, Layers, X, Menu } from 'lucide-react';
 
-const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechStack, viewMode, setViewMode, onToggleSidebar }) => {
+const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechStack, viewMode, setViewMode, onToggleSidebar, isSidebarOpen }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -17,10 +17,10 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
     <header className="h-header border-b px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-sidebar/80 backdrop-blur-md z-50 gap-3 sm:gap-4">
       <button 
         onClick={onToggleSidebar}
-        className="p-2 -ml-2 text-dim hover:text-white transition-colors flex-shrink-0"
+        className="sidebar-toggle-btn"
         title="Toggle Sidebar"
       >
-        <Menu size={24} />
+        <span className={`toggle-icon ${!isSidebarOpen ? 'rotate-180' : ''}`}>‹</span>
       </button>
 
       <div className="flex-1 min-w-0 relative">
