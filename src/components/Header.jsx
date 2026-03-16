@@ -14,7 +14,7 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
   }, []);
 
   return (
-    <header className="h-header border-b px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-sidebar/80 backdrop-blur-md z-50 gap-3 sm:gap-4">
+    <header className="h-header border-b px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-header z-[100] gap-3 sm:gap-4">
       <button 
         onClick={onToggleSidebar}
         className="sidebar-toggle-btn"

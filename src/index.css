@@ -89,6 +89,7 @@ code, pre {
   border: var(--glass-border);
 }
 
+
 .gradient-text {
   background: var(--accent-gradient);
   background-clip: text;
@@ -190,6 +191,12 @@ button {
 
 .rotate-180 {
   transform: rotate(180deg);
+}
+
+.bg-header {
+  background: var(--bg-sidebar) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  z-index: 100 !important;
 }
 
 .h-header { height: var(--header-height); }
@@ -464,3 +471,8 @@ button {
   transform: translateY(0) scale(0.95);
 }
 
+
+/* Robust Over-scroll Spacer */
+.content-area {
+  padding-bottom: 80vh !important;
+}
