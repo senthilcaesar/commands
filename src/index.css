@@ -55,7 +55,7 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-main);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: clip; /* clip instead of hidden allows sticky to work */
   line-height: 1.5;
 }
 
