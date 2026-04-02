@@ -13,7 +13,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
 
   if (viewMode === 'list') {
     return (
-      <div className="command-card glass p-4 rounded-xl flex items-center gap-6 hover:translate-x-1 transition-all duration-300 relative group">
+      <div className="command-card command-card-list glass p-4 rounded-xl flex items-center gap-6 relative group">
         <div className="flex-none w-24">
           <span className="text-[9px] tracking-wider text-blue-400 font-bold">{category}</span>
         </div>

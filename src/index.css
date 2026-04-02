@@ -476,3 +476,13 @@ button {
 .content-area {
   padding-bottom: 80vh !important;
 }
+
+/* === List View — Simple Hover Animation === */
+.command-card-list {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.command-card-list:hover {
+  transform: translateX(6px);
+  background: var(--bg-card-hover);
+}
