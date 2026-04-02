@@ -89,19 +89,6 @@ code, pre {
   border: var(--glass-border);
 }
 
-/* List view card hover — left accent glow */
-.list-card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-left: 2px solid transparent;
-}
-
-.list-card-hover:hover {
-  transform: translateX(4px);
-  background: var(--bg-card-hover);
-  border-left-color: var(--accent-primary);
-  box-shadow: -3px 0 20px -5px rgba(59, 130, 246, 0.25);
-}
-
 
 .gradient-text {
   background: var(--accent-gradient);
@@ -370,7 +357,6 @@ button {
 .hover\:text-white:hover { color: var(--text-primary); }
 .hover\:scale-105:hover { transform: scale(1.05); }
 .hover\:translate-y-\[-4px\]:hover { transform: translateY(-4px); }
-.hover\:translate-x-1:hover { transform: translateX(4px); }
 .group:hover .group-hover\:opacity-100 { opacity: 1; }
 .opacity-0 { opacity: 0; }
 .opacity-20 { opacity: 0.2; }
