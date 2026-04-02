@@ -11,7 +11,7 @@ const DATA = [
   { id: 13, category: 'claude', link: 'https://ollama.com/library/qwen3-coder', command: 'qwen3-coder', snippet: 'ollama launch claude --model qwen3-coder:480b-cloud', description: 'Launch Claude Code using qwen3-coder model hosted in the cloud via Ollama.' },
   { id: 14, category: 'claude', link: 'https://ollama.com/library/minimax-m2.7', command: 'minimax-m2.7', snippet: 'ollama run minimax-m2.7:cloud', description: 'Launch Claude Code using minimax-m2.7 model hosted in the cloud via Ollama.' },
 
-  { id: 2, category: 'linux', link: '', command: 'find and delete', snippet: 'find . -name "*.log" -type f -delete', description: 'Recursively search for and delete all .log files in the current directory and subdirectories.' },
+  { id: 2, category: 'claude', link: 'https://github.com/sirmalloc/ccstatusline', command: 'Status line formatter for Claude Code', snippet: 'npx -y ccstatusline@latest', description: 'CCstatusline is an open-source npm package built for Claude Code that gives you a fully customizable statusline with real-time metrics.' },
   { id: 3, category: 'git', link: '', command: 'undo last commit', snippet: 'git reset --soft HEAD~1', description: 'Revert the most recent commit while keeping the changes staged in your local workspace.' },
   { id: 4, category: 'npm', link: '', command: 'clean install', snippet: 'rm -rf node_modules && npm install', description: 'Reliably refresh project dependencies by deleting the modules folder and reinstalling.' },
   { id: 5, category: 'cloud', link: '', command: 'gemini generate', snippet: 'gemini generate "Explain quantum computing"', description: 'Generate a text response using the Gemini AI CLI for a specific prompt.' },
