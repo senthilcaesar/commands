@@ -26,7 +26,7 @@ const DATA = [
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => localStorage.getItem('sidebar') !== 'collapsed');
