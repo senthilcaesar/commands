@@ -1,15 +1,15 @@
 import React from 'react';
-import { Terminal, Box, Globe, Github, Package, Cpu, Layers, Bookmark, X } from 'lucide-react';
+import { Terminal, Box, Globe, Github, Package, Cpu, Layers, Bookmark } from 'lucide-react';
 
-const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, onClose }) => {
+const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, onClose, categoryCounts = {} }) => {
   const categories = [
     { id: 'all', label: 'All Commands', icon: <Box size={18} /> },
-    { id: 'linux', label: 'Linux/Bash', icon: <Terminal size={18} /> },
-    { id: 'git', label: 'GitHub/Git', icon: <Github size={18} /> },
-    { id: 'npm', label: 'npm/Node', icon: <Package size={18} /> },
-    { id: 'cloud', label: 'Cloud & CLI', icon: <Globe size={18} /> },
-    { id: 'build', label: 'Build & CI', icon: <Cpu size={18} /> },
     { id: 'claude', label: 'Claude Code', icon: <Layers size={18} /> },
+    { id: 'build', label: 'Build & CI', icon: <Cpu size={18} /> },
+    { id: 'cloud', label: 'Cloud & CLI', icon: <Globe size={18} /> },
+    { id: 'git', label: 'GitHub/Git', icon: <Github size={18} /> },
+    { id: 'linux', label: 'Linux/Bash', icon: <Terminal size={18} /> },
+    { id: 'npm', label: 'npm/Node', icon: <Package size={18} /> },
   ];
 
   return (
@@ -25,9 +25,9 @@ const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, on
           title="Go to Home"
         >
           <div className="flex items-center gap-2 sm:gap-2.5 group-hover:translate-x-0.5 transition-transform duration-300">
-            <Bookmark className="text-blue-500 flex-shrink-0" size={24} sm={28} strokeWidth={2.5} />
+            <Bookmark className="text-blue-500 flex-shrink-0" size={24} strokeWidth={2.5} />
             <div className="flex flex-col items-start leading-none gap-0">
-              <span className="gradient-text text-xl sm:text-xl font-bold whitespace-nowrap overflow-hidden transition-all duration-300 tracking-tight">Command Central</span>
+              <span className="gradient-text text-xl font-bold whitespace-nowrap overflow-hidden transition-all duration-300 tracking-tight">Command Central</span>
             </div>
           </div>
         </button>
@@ -36,29 +36,42 @@ const Sidebar = ({ activeCategory, setActiveCategory, setSearchQuery, isOpen, on
       <nav className="sidebar-nav px-4">
         <p className="text-[10px] uppercase tracking-widest text-dim font-bold mb-4 px-2">Library</p>
         <ul className="space-y-1">
-          {categories.map((cat) => (
-            <li key={cat.id}>
-              <button
-                onClick={() => {
-                  setActiveCategory(cat.id);
-                  if (window.innerWidth <= 768) onClose();
-                }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                  activeCategory === cat.id 
-                    ? 'bg-blue-500/10 text-white font-medium' 
-                    : 'text-secondary hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                <span className={activeCategory === cat.id ? 'text-blue-400' : 'text-dim'}>
-                  {cat.icon}
-                </span>
-                {cat.label}
-              </button>
-            </li>
-          ))}
+          {categories.map((cat) => {
+            const count = categoryCounts[cat.id] ?? 0;
+            return (
+              <li key={cat.id}>
+                <button
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    if (window.innerWidth <= 768) onClose();
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all ${
+                    activeCategory === cat.id 
+                      ? 'bg-blue-500/10 text-white font-medium' 
+                      : 'text-secondary hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={activeCategory === cat.id ? 'text-blue-400' : 'text-dim'}>
+                      {cat.icon}
+                    </span>
+                    <span>{cat.label}</span>
+                  </div>
+                  <span
+                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full transition-colors ${
+                      activeCategory === cat.id
+                        ? 'bg-blue-500/20 text-blue-300'
+                        : 'bg-white/5 text-dim border border-white/5'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </nav>
-
     </aside>
   );
 };

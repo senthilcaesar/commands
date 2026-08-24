@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Search, Command, LayoutGrid, List, Layers, X, Menu } from 'lucide-react';
+import { Search, Command, LayoutGrid, List, X } from 'lucide-react';
 
 const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechStack, viewMode, setViewMode, onToggleSidebar, isSidebarOpen }) => {
   useEffect(() => {
@@ -50,6 +50,7 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+        {/* Grid / List View Mode Switcher */}
         <div className="flex items-center glass rounded-xl p-1 relative bg-black/5 dark:bg-white/5 border border-white/5">
           <div 
             className="absolute h-[calc(100%-8px)] rounded-lg bg-accent-primary transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-sm"
