@@ -166,6 +166,15 @@ const DATA = [
     description:
       'Execute a command repeatedly at regular intervals and show the output in real-time.',
   },
+  {
+    id: 16,
+    category: 'linux',
+    link: 'https://man7.org/linux/man-pages/man1/hostnamectl.1.html',
+    command: 'system hostname info',
+    snippet: 'hostnamectl',
+    description:
+      'Show the system hostname along with OS, kernel, architecture and hardware details (systemd-based Linux).',
+  },
 
   // --- 6. npm / Node ---
   {
