@@ -20,15 +20,7 @@ const DATA = [
     description: (
       <>
         Launch Claude Code using GLM-4.7 model hosted in the cloud via Ollama.{' '}
-        <span
-          style={{
-            backgroundColor: '#fef08a',
-            color: '#854d0e',
-            padding: '2px 6px',
-            borderRadius: '4px',
-            fontWeight: 400,
-          }}
-        >
+        <span className='pencil-note'>
           GLM models are from Z.ai
         </span>
       </>
@@ -46,15 +38,7 @@ const DATA = [
       <>
         Launch Claude Code using kimi-k2.7-code model hosted in the cloud via
         Ollama.{' '}
-        <span
-          style={{
-            backgroundColor: '#fef08a',
-            color: '#854d0e',
-            padding: '2px 6px',
-            borderRadius: '4px',
-            fontWeight: 400,
-          }}
-        >
+        <span className='pencil-note'>
           Kimi models are from Moonshot AI
         </span>
       </>
@@ -202,7 +186,7 @@ function App() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [theme, setTheme] = useState('light');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('list');
+  const [viewMode, setViewMode] = useState('grid');
   const [isSidebarOpen, setIsSidebarOpen] = useState(
     () => localStorage.getItem('sidebar') !== 'collapsed',
   );
@@ -214,6 +198,14 @@ function App() {
   React.useEffect(() => {
     localStorage.setItem('sidebar', isSidebarOpen ? 'open' : 'collapsed');
   }, [isSidebarOpen]);
+
+  // Back to the page as it first loads: all commands, no search, grid view, top of page
+  const goHome = () => {
+    setActiveCategory('all');
+    setSearchQuery('');
+    setViewMode('grid');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -260,16 +252,18 @@ function App() {
       <Sidebar
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
-        setSearchQuery={setSearchQuery}
+        onGoHome={goHome}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
+        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        onOpenTechStack={() => setIsTechStackOpen(true)}
         categoryCounts={categoryCounts}
       />
 
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div
-          className='fixed inset-0 bg-black/50 z-[150] md:hidden backdrop-blur-sm'
+          className='sidebar-backdrop md:hidden'
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -300,7 +294,7 @@ function App() {
               <div
                 className={
                   viewMode === 'grid'
-                    ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
+                    ? 'card-grid'
                     : 'flex flex-col gap-4'
                 }
               >

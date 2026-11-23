@@ -3,7 +3,7 @@ import { Copy, Check } from 'lucide-react';
 import SyntaxHighlighter from './SyntaxHighlighter';
 
 const CommandCard = ({ command, viewMode = 'grid' }) => {
-  const { id, category, command: cmdText, snippet, description, link } = command;
+  const { category, command: cmdText, snippet, description, link } = command;
   const [copied, setCopied] = useState(false);
 
   const handleCopy = (e) => {
@@ -13,12 +13,24 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Sits inside the code box, to the right of the snippet
+  const copyButton = (
+    <button
+      onClick={handleCopy}
+      className={`copy-btn p-1.5 transition-colors cursor-pointer flex-none ${copied ? 'is-copied' : 'text-dim'}`}
+      title={copied ? 'Copied!' : 'Copy snippet'}
+      aria-label={copied ? 'Copied' : 'Copy snippet'}
+    >
+      {copied ? <Check size={15} /> : <Copy size={15} />}
+    </button>
+  );
+
   // --- List View Layout ---
   if (viewMode === 'list') {
     return (
       <div className="command-card command-card-list glass p-4 rounded-xl flex items-center gap-6 relative group border border-[var(--border-subtle)]">
         <div className="flex-none w-24">
-          <span className="text-[9px] tracking-wider text-blue-400 font-bold uppercase">{category}</span>
+          <span className="category-tag" data-cat={category}>{category}</span>
         </div>
         
         <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -27,7 +39,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="font-semibold text-orange hover:text-orange-dark text-sm truncate block transition-colors w-fit" 
+              className="cmd-link font-semibold text-orange hover:text-orange-dark text-sm truncate block transition-colors w-fit" 
               style={{ textDecoration: 'none' }}
             >
               {cmdText}
@@ -39,19 +51,12 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
         </div>
 
         <div 
-          className="flex-none rounded-lg px-3 py-1.5 border border-[var(--border-subtle)] max-w-[35%] overflow-hidden bg-code"
+          className="code-box flex items-center gap-2 rounded-lg pl-3 pr-1 py-1 border border-[var(--border-subtle)] bg-code"
           style={{ backgroundColor: 'var(--bg-code)' }}
         >
-          <SyntaxHighlighter code={snippet} className="text-[11px]" />
+          <SyntaxHighlighter code={snippet} className="text-[11px] min-w-0" />
+          {copyButton}
         </div>
-
-        <button 
-          onClick={handleCopy}
-          className={`p-2 rounded-lg transition-all cursor-pointer flex-none ${copied ? 'bg-green-500/10 text-green-400' : 'text-dim hover:text-white hover:bg-white/5'}`}
-          title="Copy snippet"
-        >
-          {copied ? <Check size={16} /> : <Copy size={16} />}
-        </button>
       </div>
     );
   }
@@ -61,13 +66,13 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
     <div className="command-card glass p-5 rounded-2xl flex flex-col gap-4 hover:translate-y-[-2px] transition-all duration-300 relative border border-[var(--border-subtle)] hover:border-blue-500/30 shadow-md hover:shadow-xl">
       <div className="flex justify-between items-start">
         <div className="flex flex-col gap-1 flex-1 min-w-0 pr-2">
-          <span className="text-[9px] tracking-wider text-blue-400 font-bold uppercase">{category}</span>
+          <span className="category-tag" data-cat={category}>{category}</span>
           {link ? (
             <a 
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="font-semibold text-orange hover:text-orange-dark leading-tight transition-colors block w-fit" 
+              className="cmd-link font-semibold text-orange hover:text-orange-dark leading-tight transition-colors block w-fit" 
               style={{ textDecoration: 'none' }}
             >
               {cmdText}
@@ -76,13 +81,6 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
             <h3 className="font-semibold text-text-primary leading-tight">{cmdText}</h3>
           )}
         </div>
-        <button 
-          onClick={handleCopy}
-          className={`p-2 rounded-lg transition-colors cursor-pointer flex-shrink-0 ${copied ? 'bg-green-500/10 text-green-400' : 'bg-white/5 text-dim hover:text-white hover:bg-white/10'}`}
-          title="Copy snippet"
-        >
-          {copied ? <Check size={16} /> : <Copy size={16} />}
-        </button>
       </div>
 
       <p className="text-secondary text-xs leading-relaxed line-clamp-2">
@@ -90,10 +88,11 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
       </p>
 
       <div 
-        className="snippet-block rounded-xl p-4 border border-[var(--border-subtle)] relative bg-code"
+        className="snippet-block code-box flex items-start gap-2 rounded-xl py-3 pl-4 pr-2 border border-[var(--border-subtle)] relative bg-code"
         style={{ backgroundColor: 'var(--bg-code)' }}
       >
-        <SyntaxHighlighter code={snippet} className="text-xs break-all" />
+        <SyntaxHighlighter code={snippet} className="text-xs break-all flex-1 min-w-0 pt-1" />
+        {copyButton}
       </div>
     </div>
   );

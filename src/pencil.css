@@ -1,0 +1,687 @@
+/* ==========================================================
+   Pencil-art theme: graphite lines on textured paper.
+   Loaded after index.css so it can restyle the components.
+   ========================================================== */
+
+html {
+  font-size: 17px; /* Patrick Hand runs small; nudge everything up */
+}
+
+body {
+  background-color: var(--bg-main);
+  letter-spacing: 0.01em;
+}
+
+/* Paper grain laid over the whole page */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: var(--grain);
+  mix-blend-mode: var(--grain-blend);
+  opacity: var(--grain-opacity);
+}
+
+::selection {
+  background: var(--hatch);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pencil-light);
+  border-radius: var(--sketch-radius);
+}
+
+/* ---------- Sidebar: a sketchbook margin ---------- */
+.sidebar {
+  background: var(--bg-sidebar);
+  border-right: none;
+  background-image: var(--sketch-vline);
+  background-repeat: repeat-y;
+  background-position: right top;
+}
+
+.brand-title {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  padding-bottom: 0.4rem;
+  background: var(--scribble) no-repeat left bottom / 100% 9px;
+}
+
+.brand-icon {
+  color: var(--text-primary);
+  transform: rotate(-8deg);
+}
+
+.sidebar-label {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sidebar-item {
+  font-size: 1.02rem;
+  border-radius: var(--sketch-radius);
+  border: 1.5px solid transparent;
+}
+
+.sidebar-item:hover {
+  background: var(--bg-hover);
+  border-color: var(--pencil-light);
+}
+
+.sidebar-item.is-active {
+  /* soft platinum-gray hatching over a faint platinum wash */
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--hatch-soft) 0 1px,
+      transparent 1px 7px
+    ),
+    var(--platinum-wash);
+  border-color: var(--pencil-light);
+  color: var(--text-primary);
+}
+
+.sidebar-item svg {
+  stroke-width: 1.6;
+}
+
+/* Count bubbles drawn like the wire nodes in the sketch */
+.count-badge {
+  min-width: 1.6rem;
+  height: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border: 1.4px solid var(--border-subtle) !important;
+  border-radius: 48% 52% 45% 55% / 55% 45% 52% 48% !important;
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  padding: 0 !important;
+}
+
+.sidebar-item.is-active .count-badge {
+  background: var(--text-primary) !important;
+  color: var(--bg-main) !important;
+  border-color: var(--text-primary) !important;
+}
+
+/* ---------- Header ---------- */
+.bg-header {
+  background: var(--bg-main) !important;
+  box-shadow: none;
+  border-bottom: none;
+  background-image: var(--sketch-hline) !important;
+  background-repeat: repeat-x !important;
+  background-position: left bottom !important;
+}
+
+.sidebar-toggle-btn,
+.search-input,
+.view-switch,
+.tech-btn,
+.theme-toggle {
+  background: var(--bg-card) !important;
+  border: var(--glass-border) !important;
+  border-radius: var(--sketch-radius) !important;
+  box-shadow: 2px 3px 0 -1px var(--pencil-light);
+  color: var(--text-primary);
+}
+
+.sidebar-toggle-btn:hover,
+.tech-btn:hover,
+.theme-toggle:hover {
+  transform: rotate(-1.5deg) translateY(-1px);
+  box-shadow: 3px 4px 0 -1px var(--border-subtle);
+}
+
+.search-input {
+  font-family: var(--font-hand);
+  font-size: 1rem !important;
+  color: var(--text-primary);
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 3px 4px 0 -1px var(--border-subtle);
+}
+
+.view-switch {
+  padding: 3px;
+}
+
+.view-switch .bg-accent-primary {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--hatch) 0 1px,
+    transparent 1px 5px
+  );
+  border: 1.4px solid var(--border-subtle);
+  border-radius: var(--sketch-radius-alt);
+}
+
+.tech-btn span {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary) !important;
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Command cards: sketched index cards ---------- */
+.content-area {
+  position: relative;
+  z-index: 1;
+}
+
+.command-card {
+  background: var(--bg-card) !important;
+  border: var(--glass-border) !important;
+  border-radius: var(--sketch-radius) !important;
+  box-shadow: 3px 4px 0 -1px var(--pencil-light);
+}
+
+.command-card:nth-child(even) {
+  border-radius: var(--sketch-radius-alt) !important;
+}
+
+.command-card:hover {
+  box-shadow: 4px 6px 0 -1px var(--border-subtle);
+}
+
+.command-card:not(.command-card-list):hover {
+  transform: translateY(-2px) rotate(-0.4deg);
+}
+
+.command-card-list:hover {
+  transform: translateX(6px) rotate(-0.2deg);
+}
+
+.command-card h3,
+.cmd-link {
+  font-size: 1.1rem;
+  font-weight: 400 !important;
+  color: var(--text-primary) !important;
+}
+
+.cmd-link {
+  display: inline-block !important;
+  width: fit-content;
+  max-width: 100%;
+  background: var(--scribble) no-repeat left bottom / 100% 6px;
+  padding-bottom: 3px;
+}
+
+.cmd-link:hover {
+  background-size: 100% 8px;
+  color: var(--text-secondary) !important;
+}
+
+.command-card p {
+  font-size: 0.92rem !important;
+  color: var(--text-secondary);
+}
+
+/* Category tag: hand-lettered, with a wire node in front */
+.category-tag {
+  font-family: var(--font-title);
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: lowercase !important;
+  color: var(--text-dim) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.category-tag::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border: 1.4px solid currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.category-tag[data-cat='claude']::before,
+.category-tag[data-cat='linux']::before {
+  background: currentColor;
+}
+.category-tag[data-cat='build']::before,
+.category-tag[data-cat='npm']::before {
+  border-radius: 1px;
+}
+.category-tag[data-cat='npm']::before {
+  background: currentColor;
+}
+
+/* Code snippets: a pencilled box with a light hatch */
+.command-card .bg-code,
+.snippet-block {
+  background-color: var(--bg-code) !important;
+  border: 1.2px dashed var(--border-subtle) !important;
+  border-radius: var(--sketch-radius-alt) !important;
+}
+
+.command-card code {
+  font-size: 0.78rem !important;
+}
+
+.copy-btn {
+  border-radius: 50% 45% 55% 50% / 45% 55% 50% 50% !important;
+  border: 1.4px solid transparent !important;
+}
+.copy-btn:hover {
+  border-color: var(--border-subtle) !important;
+  background: var(--bg-hover) !important;
+}
+.copy-btn:hover {
+  color: var(--text-primary);
+}
+.copy-btn.is-copied {
+  color: var(--text-primary);
+  border-color: var(--border-subtle) !important;
+}
+.code-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.35rem 0.4rem 0.8rem !important;
+}
+.code-box.snippet-block {
+  align-items: flex-start;
+  padding: 0.85rem 0.5rem 0.85rem 1rem !important;
+}
+.code-box code {
+  flex: 1;
+  min-width: 0;
+}
+.code-box .copy-btn {
+  flex: none;
+  margin-top: -2px;
+}
+
+/* Inline note in a description: pencil-hatched highlight */
+.pencil-note {
+  padding: 0 4px;
+  color: var(--text-primary);
+  /* same soft platinum hatching as the selected sidebar item */
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--hatch-soft) 0 1px,
+      transparent 1px 7px
+    ),
+    var(--platinum-wash);
+  border-radius: 3px;
+}
+
+/* ---------- Empty state ---------- */
+.empty-state h3 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+  backdrop-filter: none;
+}
+
+.modal-content {
+  border-radius: var(--sketch-radius) !important;
+  border: var(--glass-border) !important;
+  box-shadow: 5px 7px 0 -1px var(--border-subtle) !important;
+}
+
+/* ---------- Tech stack: bento grid ---------- */
+.modal-content.tech-modal {
+  max-width: 720px;
+  max-height: 88vh;
+}
+
+.bento-title {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.35rem;
+  background: var(--scribble) no-repeat left bottom / 100% 8px;
+}
+
+.bento-close {
+  color: var(--text-primary);
+}
+.bento-close:hover {
+  background: var(--bg-hover);
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(120px, auto);
+  gap: 0.85rem;
+}
+
+.bento-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1.4px solid var(--border-subtle);
+  border-radius: var(--sketch-radius-alt);
+  box-shadow: 2px 3px 0 -1px var(--pencil-light);
+  color: var(--text-primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-tile:nth-child(even) {
+  border-radius: var(--sketch-radius);
+}
+
+.bento-tile:hover {
+  transform: translateY(-2px) rotate(-0.4deg);
+  box-shadow: 3px 5px 0 -1px var(--border-subtle);
+}
+
+.bento-tile h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.bento-tile p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin-top: 0.2rem;
+}
+
+.bento-wide {
+  grid-column: span 2;
+}
+
+/* The hero tile: big, shaded, text sitting at the bottom */
+.bento-hero {
+  grid-column: span 2;
+  grid-row: span 2;
+  justify-content: space-between;
+  padding: 1.4rem;
+  background:
+    repeating-linear-gradient(-45deg, var(--hatch) 0 1px, transparent 1px 7px),
+    var(--bg-card);
+}
+
+.bento-hero h3 {
+  font-family: var(--font-title);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bento-hero p {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* Small previews inside the CSS and fonts tiles */
+.bento-hatch {
+  margin-top: auto;
+  height: 22px;
+  border: 1.2px dashed var(--border-subtle);
+  border-radius: var(--sketch-radius);
+  background: repeating-linear-gradient(-45deg, var(--hatch) 0 1px, transparent 1px 5px);
+}
+
+.bento-fonts {
+  margin-top: auto;
+  display: flex;
+  gap: 1.1rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }
+  .bento-hero {
+    grid-row: span 1;
+  }
+}
+
+.sidebar-item span {
+  white-space: nowrap;
+}
+
+/* List rows: fixed category column, snippet capped on wide screens */
+.command-card-list > div:first-child {
+  flex: none;
+  width: 6.5rem;
+}
+.command-card-list > .bg-code {
+  flex: none;
+  max-width: 38%;
+}
+
+@media (max-width: 640px) {
+  .command-card-list {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem !important;
+  }
+  .command-card-list > div:first-child {
+    order: 0;
+    width: 100%;
+  }
+  .command-card-list > .flex-1 {
+    order: 1;
+    flex: 1 1 0;
+  }
+  .command-card-list > .bg-code {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+  }
+  .command-card-list p {
+    white-space: normal;
+  }
+  .tech-btn {
+    display: none !important;
+  }
+}
+
+/* Keep the search box a comfortable width instead of spanning the header */
+.search-wrap {
+  max-width: 440px;
+}
+
+/* Desktop: three-column header so the search sits in the true centre */
+@media (min-width: 769px) {
+  .bg-header {
+    display: grid !important;
+    /* equal side columns wide enough for the buttons, so the search stays centred
+       and gives up width first when space runs out */
+    grid-template-columns: minmax(236px, 1fr) minmax(0, 440px) minmax(236px, 1fr);
+  }
+  .search-wrap {
+    grid-column: 2;
+    width: 100%;
+  }
+  .header-actions {
+    grid-column: 3;
+    justify-self: end;
+  }
+}
+
+.tech-btn span {
+  white-space: nowrap;
+}
+
+/* Pencilled divider under the "Commands" title */
+.sidebar-top {
+  position: relative;
+  /* same height as the header, so this divider lines up with the header's line */
+  height: var(--header-height);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.sidebar-top::after {
+  content: '';
+  position: absolute;
+  /* edge to edge, drawn exactly like the header's line so the two join up */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  background: var(--sketch-hline) repeat-x left bottom;
+}
+.sidebar-nav {
+  padding-top: 1.25rem;
+}
+
+/* Every card title sits on a soft platinum tag; linked titles keep their scribbled underline */
+.command-card h3,
+.command-card .cmd-link {
+  display: inline-block !important;
+  width: fit-content;
+  max-width: 100%;
+  padding: 2px 8px 4px;
+  margin-left: -8px; /* keep the text lined up with the description below */
+  background-color: var(--title-wash);
+  border-radius: var(--sketch-radius-alt);
+}
+
+/* ==========================================================
+   Responsive layout: phones and tablets
+   ========================================================== */
+
+/* Card grid: as many columns as fit at 250px+ each, instead of fixed
+   breakpoints, so cards never get squeezed when the sidebar is open */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Dimmed backdrop behind the sidebar drawer on phones and portrait tablets */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(20, 20, 18, 0.35);
+}
+
+.sidebar-extra {
+  display: none;
+}
+
+/* Phones and portrait tablets: sidebar is a slide-in drawer */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: min(280px, 85vw);
+  }
+  .sidebar {
+    width: var(--sidebar-width) !important;
+  }
+}
+
+/* Landscape tablets: a little tighter spacing in the docked sidebar */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar-item {
+    padding-left: 0.6rem !important;
+    padding-right: 0.6rem !important;
+  }
+  .command-card-list > div:first-child {
+    width: 5rem;
+  }
+}
+
+/* Tablets: list rows stack the category above the title to give text room */
+@media (max-width: 900px) {
+  .command-card-list {
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem !important;
+  }
+  .command-card-list > div:first-child {
+    width: 100%;
+  }
+  .command-card-list > .flex-1 {
+    flex: 1 1 0;
+  }
+  .command-card-list > .bg-code {
+    max-width: 50%;
+  }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  .content-area {
+    padding: 1rem !important;
+  }
+  .card-grid {
+    gap: 1rem;
+  }
+  .command-card {
+    padding: 1rem !important;
+  }
+  .command-card-list > .bg-code {
+    max-width: 100%;
+  }
+  /* On a phone both views are a single column, so the switch only costs room */
+  .view-switch {
+    display: none !important;
+  }
+  .bg-header {
+    gap: 0.6rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .sidebar-extra {
+    display: block;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    background: var(--sketch-hline) repeat-x left top;
+  }
+}
+
+/* Laptops and up: always 4 cards per row */
+@media (min-width: 1025px) {
+  .card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -1,62 +1,90 @@
 import React from 'react';
-import { X, Cpu, Layers, Palette, Terminal, Zap, Search, Github, Code } from 'lucide-react';
+import { X, Layers, Palette, Zap, Github, Code, Type } from 'lucide-react';
+
+// Bento layout: each tile's `size` sets how much of the grid it takes.
+//   hero = 2 columns x 2 rows, wide = 2 columns, small = 1 column
+const techStack = [
+  {
+    name: 'React 19',
+    description: 'The latest core framework for high-performance UI components.',
+    icon: Layers,
+    size: 'hero',
+  },
+  {
+    name: 'Vite 8',
+    description: 'Ultra-fast build engine providing instant HMR and speed.',
+    icon: Zap,
+    size: 'wide',
+  },
+  {
+    name: 'Lucide React',
+    description: 'Comprehensive icon library for pixel-perfect aesthetics.',
+    icon: Palette,
+    size: 'small',
+  },
+  {
+    name: 'GitHub Pages',
+    description: 'Deployed automatically by GitHub Actions on every push to main.',
+    icon: Github,
+    size: 'small',
+  },
+  {
+    name: 'Vanilla CSS',
+    description: 'Hand-drawn pencil theme with paper texture, built in plain CSS.',
+    icon: Code,
+    size: 'wide',
+    preview: <div className='bento-hatch' aria-hidden='true' />,
+  },
+  {
+    name: 'Google Fonts',
+    description: 'Caveat for titles, Patrick Hand for text and JetBrains Mono for commands.',
+    icon: Type,
+    size: 'wide',
+    preview: (
+      <div className='bento-fonts' aria-hidden='true'>
+        <span style={{ fontFamily: 'var(--font-title)' }}>Aa</span>
+        <span style={{ fontFamily: 'var(--font-hand)' }}>Aa</span>
+        <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>Aa</span>
+      </div>
+    ),
+  },
+];
 
 const TechStackModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const techStack = [
-    {
-      name: 'React 19',
-      description: 'The latest core framework for high-performance UI components.',
-      icon: <Layers size={20} className="text-blue-500" />
-    },
-    {
-      name: 'Vite 8',
-      description: 'Ultra-fast build engine providing instant HMR and speed.',
-      icon: <Zap size={20} className="text-yellow-500" />
-    },
-    {
-      name: 'Lucide React',
-      description: 'Comprehensive icon library for pixel-perfect aesthetics.',
-      icon: <Palette size={20} className="text-pink-500" />
-    },
-    {
-      name: 'Vanilla CSS',
-      description: 'Custom design system built with performance in mind.',
-      icon: <Code size={20} className="text-green-500" />
-    }
-  ];
-
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div 
-        className="modal-content p-6 rounded-2xl relative shadow-2xl border border-white/10" 
+    <div className='modal-overlay' onClick={onClose}>
+      <div
+        className='modal-content tech-modal p-6 relative'
+        role='dialog'
+        aria-label='Technology stack'
         onClick={(e) => e.stopPropagation()}
       >
-        <button 
+        <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-full transition-colors theme-text z-50"
-          title="Close"
+          className='bento-close absolute top-4 right-4 p-2 rounded-full transition-colors z-50'
+          title='Close'
         >
           <X size={20} />
         </button>
 
-        <p className="text-secondary text-sm mb-6 font-medium tracking-wide">
-          This app is built using the following technologies:
-        </p>
- 
-        <div className="tech-grid">
-          {techStack.map((tech, index) => (
-            <div key={index} className="tech-item group bg-white/5 border border-white/10 hover:border-accent-primary/50">
-              <div className="p-3 rounded-lg bg-main border border-white/5 group-hover:scale-110 transition-transform">
-                {tech.icon}
+        <h2 className='bento-title'>Built with</h2>
+
+        <div className='bento'>
+          {techStack.map((tech) => {
+            const Icon = tech.icon;
+            return (
+              <div key={tech.name} className={`bento-tile bento-${tech.size}`}>
+                <Icon size={tech.size === 'hero' ? 34 : 20} strokeWidth={1.6} />
+                <div className='bento-body'>
+                  <h3>{tech.name}</h3>
+                  <p>{tech.description}</p>
+                </div>
+                {tech.preview}
               </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-sm mb-0.5 theme-text">{tech.name}</h3>
-                <p className="text-dim text-[11px] leading-relaxed">{tech.description}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

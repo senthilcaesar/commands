@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Search, Command, LayoutGrid, List, X } from 'lucide-react';
+import { Search, Command, LayoutGrid, List, X, Sun, Moon } from 'lucide-react';
 
 const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechStack, viewMode, setViewMode, onToggleSidebar, isSidebarOpen }) => {
   useEffect(() => {
@@ -17,19 +17,19 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
     <header className="h-header border-b px-4 sm:px-8 flex items-center justify-between sticky top-0 bg-header z-[100] gap-3 sm:gap-4">
       <button 
         onClick={onToggleSidebar}
-        className="sidebar-toggle-btn"
-        title="Toggle Sidebar"
+        className="sidebar-toggle-btn md:hidden"
+        title="Open sidebar"
       >
         <span className={`toggle-icon ${!isSidebarOpen ? 'rotate-180' : ''}`}>‹</span>
       </button>
 
-      <div className="flex-1 min-w-0 relative">
+      <div className="search-wrap flex-1 min-w-0 relative">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-dim pointer-events-none" size={18} />
         <input 
           id="global-search"
           type="text"
           placeholder="Search..."
-          className="w-full bg-white/5 border rounded-xl py-2.5 pl-10 pr-12 text-sm text-primary placeholder-dim focus:outline-none focus:border-accent-primary/50 transition-all theme-text"
+          className="search-input w-full bg-white/5 border rounded-xl py-2.5 pl-10 pr-12 text-sm text-primary placeholder-dim focus:outline-none focus:border-accent-primary/50 transition-all theme-text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -49,9 +49,9 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
         )}
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+      <div className="header-actions flex items-center gap-2 sm:gap-4 flex-shrink-0">
         {/* Grid / List View Mode Switcher */}
-        <div className="flex items-center glass rounded-xl p-1 relative bg-black/5 dark:bg-white/5 border border-white/5">
+        <div className="view-switch flex items-center glass rounded-xl p-1 relative bg-black/5 dark:bg-white/5 border border-white/5">
           <div 
             className="absolute h-[calc(100%-8px)] rounded-lg bg-accent-primary transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-sm"
             style={{ 
@@ -78,7 +78,7 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
 
         <button 
           onClick={onToggleTechStack}
-          className="group relative flex items-center justify-center px-3 sm:px-4 h-10 rounded-xl glass border border-white/10 btn-hover-premium theme-text"
+          className="tech-btn group relative flex items-center justify-center px-3 sm:px-4 h-10 rounded-xl glass border border-white/10 btn-hover-premium theme-text"
           title="Technology Stack"
         >
           <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
@@ -89,12 +89,10 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onToggleTechS
  
         <button 
           onClick={toggleTheme}
-          className="p-2.5 glass rounded-xl text-lg sm:text-xl toggle-hover-premium flex-shrink-0"
+          className="theme-toggle flex-shrink-0"
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
-          <span className="inline-block transition-transform duration-300">
-            {theme === 'dark' ? '🌙' : '☀️'}
-          </span>
+          {theme === 'dark' ? <Moon size={18} strokeWidth={1.6} /> : <Sun size={18} strokeWidth={1.6} />}
         </button>
       </div>
     </header>

@@ -1,49 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
   /* Common variables */
   --sidebar-width: 260px;
   --header-height: 88px;
-  --glass-blur: blur(12px);
+  --glass-blur: none;
+  --font-hand: 'Patrick Hand', 'Comic Sans MS', system-ui, sans-serif;
+  --font-title: 'Caveat', 'Patrick Hand', cursive;
+  --sketch-radius: 255px 12px 225px 12px / 12px 225px 12px 255px;
+  --sketch-radius-alt: 12px 225px 12px 255px / 255px 12px 225px 12px;
 
-  /* Dark Theme (Default) — Catppuccin Frappé */
-  --bg-main: #303446; /* Base */
-  --bg-sidebar: #292c3c; /* Mantle */
-  --bg-card: rgba(65, 69, 89, 0.6); /* Surface0 tinted */
-  --bg-card-hover: rgba(81, 87, 109, 0.7); /* Surface1 tinted */
-  --accent-primary: #8caaee; /* Blue */
-  --accent-secondary: #ca9ee6; /* Mauve */
-  --accent-rgb: 140, 170, 238;
-  --accent-gradient: linear-gradient(135deg, #8caaee 0%, #ca9ee6 100%);
-  --text-primary: #c6d0f5; /* Text */
-  --text-secondary: #b5bfe2; /* Subtext1 */
-  --text-dim: #949cbb; /* Overlay2 */
-  --border-subtle: rgba(115, 121, 148, 0.35); /* Overlay0 tinted */
-  --glass-border: 1px solid rgba(131, 139, 167, 0.3); /* Overlay1 tinted */
-  --bg-hover: rgba(65, 69, 89, 0.5); /* Surface0 tinted */
-  --modal-overlay: rgba(35, 38, 52, 0.85); /* Crust tinted */
-  --bg-code: #232634; /* Crust */
-  --text-code: #2dd4bf; /* Vibrant Azure Teal Green for Dark Mode */
+  /* Dark Theme — charcoal on dark paper */
+  --bg-main: #262523;
+  --bg-sidebar: #22211f;
+  --bg-card: rgba(46, 45, 42, 0.94);
+  --bg-card-hover: rgba(54, 53, 49, 0.97);
+  --accent-primary: #ecebe6;
+  --accent-secondary: #a9a69e;
+  --accent-rgb: 236, 235, 230;
+  --accent-gradient: linear-gradient(90deg, #ecebe6 0%, #ecebe6 100%);
+  --text-primary: #ecebe6;
+  --text-secondary: #c6c3ba;
+  --text-dim: #8f8c84;
+  --border-subtle: rgba(236, 235, 230, 0.45);
+  --pencil-light: rgba(236, 235, 230, 0.22);
+  --glass-border: 1.5px solid rgba(236, 235, 230, 0.55);
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --modal-overlay: rgba(20, 20, 18, 0.75);
+  --bg-code: #1d1c1a;
+  --text-code: #f2f0ea;
+  --hatch: rgba(236, 235, 230, 0.35);
+  --hatch-soft: rgba(229, 228, 226, 0.12);
+  --platinum-wash: rgba(229, 228, 226, 0.05);
+  --title-wash: rgba(229, 228, 226, 0.08);
+  --grain-blend: screen;
+  --grain-opacity: 0.18;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --sketch-hline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='6' viewBox='0 0 400 6'%3E%3Cpath d='M0 3 Q50 1.5 100 3.2 T200 2.6 T300 3.4 T400 3' fill='none' stroke='%23ecebe6' stroke-opacity='.22' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M0 4 Q60 3 120 4.4 T240 3.6 T400 4.2' fill='none' stroke='%23ecebe6' stroke-opacity='.1' stroke-width='.8'/%3E%3C/svg%3E");
+  --sketch-vline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='400' viewBox='0 0 6 400'%3E%3Cpath d='M3 0 Q1.5 50 3.2 100 T2.6 200 T3.4 300 T3 400' fill='none' stroke='%23ecebe6' stroke-opacity='.22' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M4 0 Q3 60 4.4 120 T3.6 240 T4.2 400' fill='none' stroke='%23ecebe6' stroke-opacity='.1' stroke-width='.8'/%3E%3C/svg%3E");
+  --scribble: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='10' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C40 3 80 7 120 4.5 S180 5 198 4' fill='none' stroke='%23ecebe6' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M8 8 C50 6 100 8.5 150 6.5 S190 7 196 6.8' fill='none' stroke='%23ecebe6' stroke-opacity='.55' stroke-width='1.1' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 [data-theme='light'] {
-  --bg-main: #f8fafc; /* Crisp Modern Slate 50 */
-  --bg-sidebar: #ffffff; /* Pure White Sidebar */
-  --bg-card: rgba(255, 255, 255, 0.95); /* Clean Card Base */
-  --bg-card-hover: rgba(241, 245, 249, 1); /* Slate 100 hover */
-  --accent-primary: #2563eb; /* Vibrant Electric Blue */
-  --accent-secondary: #7c3aed; /* Linear Purple */
-  --accent-rgb: 37, 99, 235;
-  --accent-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  --text-primary: #0f172a; /* Deep Slate 900 */
-  --text-secondary: #334155; /* Slate 700 */
-  --text-dim: #64748b; /* Slate 500 */
-  --border-subtle: #e2e8f0; /* Crisp Slate 200 border */
-  --glass-border: 1px solid #e2e8f0;
-  --bg-hover: #f1f5f9;
-  --modal-overlay: rgba(15, 23, 42, 0.4);
-  --bg-code: #e2e8f0; /* Crisp light gray code box background */
-  --text-code: #0d5c63; /* Dark Azure Navy Green */
+  /* Light Theme — graphite on cream paper */
+  --bg-main: #f8f6f1;
+  --bg-sidebar: #f2efe8;
+  --bg-card: rgba(255, 254, 251, 0.96);
+  --bg-card-hover: rgba(255, 255, 255, 0.99);
+  --accent-primary: #262626;
+  --accent-secondary: #5f5e5a;
+  --accent-rgb: 38, 38, 38;
+  --accent-gradient: linear-gradient(90deg, #262626 0%, #262626 100%);
+  --text-primary: #232322;
+  --text-secondary: #4a4946;
+  --text-dim: #7d7b75;
+  --border-subtle: rgba(35, 35, 34, 0.55);
+  --pencil-light: rgba(35, 35, 34, 0.2);
+  --glass-border: 1.5px solid rgba(35, 35, 34, 0.7);
+  --bg-hover: rgba(0, 0, 0, 0.04);
+  --modal-overlay: rgba(248, 246, 241, 0.72);
+  --bg-code: #efece5;
+  --text-code: #1c1c1b;
+  --hatch: rgba(35, 35, 34, 0.32);
+  --hatch-soft: rgba(168, 169, 173, 0.32);
+  --platinum-wash: rgba(229, 228, 226, 0.55);
+  --title-wash: rgba(214, 213, 210, 0.45);
+  --grain-blend: multiply;
+  --grain-opacity: 0.16;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --sketch-hline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='6' viewBox='0 0 400 6'%3E%3Cpath d='M0 3 Q50 1.5 100 3.2 T200 2.6 T300 3.4 T400 3' fill='none' stroke='%23a8a9ad' stroke-opacity='.7' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M0 4 Q60 3 120 4.4 T240 3.6 T400 4.2' fill='none' stroke='%23a8a9ad' stroke-opacity='.3' stroke-width='.8'/%3E%3C/svg%3E");
+  --sketch-vline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='400' viewBox='0 0 6 400'%3E%3Cpath d='M3 0 Q1.5 50 3.2 100 T2.6 200 T3.4 300 T3 400' fill='none' stroke='%23a8a9ad' stroke-opacity='.7' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M4 0 Q3 60 4.4 120 T3.6 240 T4.2 400' fill='none' stroke='%23a8a9ad' stroke-opacity='.3' stroke-width='.8'/%3E%3C/svg%3E");
+  --scribble: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='10' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C40 3 80 7 120 4.5 S180 5 198 4' fill='none' stroke='%23232322' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M8 8 C50 6 100 8.5 150 6.5 S190 7 196 6.8' fill='none' stroke='%23232322' stroke-opacity='.55' stroke-width='1.1' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 * {
@@ -54,11 +81,7 @@
 }
 
 body {
-  font-family:
-    'Inter',
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-hand);
   background-color: var(--bg-main);
   color: var(--text-primary);
   overflow-x: clip; /* clip instead of hidden allows sticky to work */
@@ -128,10 +151,10 @@ button {
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 200px;
+    width: 232px;
   }
   :root {
-    --sidebar-width: 200px;
+    --sidebar-width: 232px;
   }
   .sidebar .text-xl {
     font-size: 1.1rem;
@@ -155,13 +178,30 @@ button {
   }
 }
 
-/* Sidebar Collapsed State (Desktop) */
+/* Sidebar Collapsed State (Desktop): a narrow icon rail */
 @media (min-width: 769px) {
   .sidebar:not(.open) {
-    width: 0;
-    border-right-color: transparent;
-    opacity: 0;
-    pointer-events: none;
+    width: 64px;
+  }
+  .sidebar:not(.open) .sidebar-top {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .sidebar:not(.open) .sidebar-brand,
+  .sidebar:not(.open) .sidebar-label,
+  .sidebar:not(.open) .sidebar-text,
+  .sidebar:not(.open) .count-badge {
+    display: none;
+  }
+  .sidebar:not(.open) .sidebar-nav {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+  .sidebar:not(.open) .sidebar-item {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -538,19 +578,19 @@ button {
   color: var(--text-dim);
 }
 .text-blue-400 {
-  color: #8caaee;
+  color: var(--text-primary);
 } /* Frappé Blue */
 .text-blue-500 {
-  color: #8caaee;
+  color: var(--text-primary);
 } /* Frappé Blue */
 .text-green-400 {
-  color: #a6d189;
+  color: var(--text-primary);
 } /* Frappé Green */
 .text-orange {
-  color: #ef9f76;
+  color: var(--text-primary);
 } /* Frappé Peach */
 .hover\:text-orange-dark:hover {
-  color: #e5c890;
+  color: var(--text-secondary);
 } /* Frappé Yellow */
 .text-code {
   color: var(--text-code);
@@ -571,16 +611,16 @@ button {
   background-color: var(--bg-code) !important;
 }
 .bg-blue-500\/10 {
-  background-color: rgba(140, 170, 238, 0.15);
+  background-color: transparent;
 } /* Frappé Blue tinted */
 .bg-blue-600 {
-  background-color: #8caaee;
+  background-color: var(--text-primary);
 } /* Frappé Blue */
 .bg-green-500 {
-  background-color: #a6d189;
+  background-color: var(--text-primary);
 } /* Frappé Green */
 .bg-green-500\/10 {
-  background-color: rgba(166, 209, 137, 0.15);
+  background-color: var(--bg-hover);
 } /* Frappé Green tinted */
 
 /* Borders & Rounded */
@@ -632,7 +672,7 @@ button {
   background-color: rgba(131, 139, 167, 0.2);
 } /* Overlay1 tinted */
 .hover\:bg-blue-500:hover {
-  background-color: #8caaee;
+  background-color: var(--text-primary);
 } /* Frappé Blue */
 .hover\:text-white:hover {
   color: var(--text-primary);
