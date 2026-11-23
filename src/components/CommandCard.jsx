@@ -51,11 +51,12 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
         </div>
 
         <div 
-          className="code-box flex items-center gap-2 rounded-lg pl-3 pr-1 py-1 border border-[var(--border-subtle)] bg-code"
+          className={`code-box ${copied ? 'just-copied' : ''} flex items-center gap-2 rounded-lg pl-3 pr-1 py-1 border border-[var(--border-subtle)] bg-code`}
           style={{ backgroundColor: 'var(--bg-code)' }}
         >
           <SyntaxHighlighter code={snippet} className="text-[11px] min-w-0" />
           {copyButton}
+          {copied && <span className='copied-note' aria-hidden='true'>copied!</span>}
         </div>
       </div>
     );
@@ -88,11 +89,12 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
       </p>
 
       <div 
-        className="snippet-block code-box flex items-start gap-2 rounded-xl py-3 pl-4 pr-2 border border-[var(--border-subtle)] relative bg-code"
+        className={`snippet-block code-box ${copied ? 'just-copied' : ''} flex items-start gap-2 rounded-xl py-3 pl-4 pr-2 border border-[var(--border-subtle)] relative bg-code`}
         style={{ backgroundColor: 'var(--bg-code)' }}
       >
         <SyntaxHighlighter code={snippet} className="text-xs break-all flex-1 min-w-0 pt-1" />
         {copyButton}
+          {copied && <span className='copied-note' aria-hidden='true'>copied!</span>}
       </div>
     </div>
   );

@@ -117,9 +117,10 @@ body::after {
 }
 
 .sidebar-item.is-active .count-badge {
-  background: var(--text-primary) !important;
-  color: var(--bg-main) !important;
-  border-color: var(--text-primary) !important;
+  /* soft platinum fill instead of solid black/white */
+  background: var(--badge-fill) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-subtle) !important;
 }
 
 /* ---------- Header ---------- */
@@ -683,5 +684,93 @@ body::after {
 @media (min-width: 1025px) {
   .card-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Copy feedback: a pencil ring sketched around the code box ---------- */
+.code-box {
+  position: relative;
+}
+
+/* Two loose rings, slightly offset, like a quick double pencil circle */
+.code-box.just-copied::before,
+.code-box.just-copied::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 1.6px solid var(--text-primary);
+  border-radius: var(--sketch-radius);
+  pointer-events: none;
+  animation: pencil-ring 0.9s ease-out forwards;
+}
+.code-box.just-copied::after {
+  inset: -8px -6px -7px -9px;
+  border-width: 1px;
+  border-radius: var(--sketch-radius-alt);
+  animation-delay: 0.08s;
+  opacity: 0;
+}
+
+/* Small hand-lettered "copied!" note that pops up above the box */
+.code-box .copied-note {
+  position: absolute;
+  right: 6px;
+  top: -1.55rem;
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  pointer-events: none;
+  animation: copied-note 1.6s ease-out forwards;
+}
+
+@keyframes pencil-ring {
+  0% {
+    opacity: 0;
+    transform: scale(0.97) rotate(-0.6deg);
+    clip-path: inset(0 100% 0 0);
+  }
+  35% {
+    opacity: 0.9;
+    clip-path: inset(0 0 0 0);
+  }
+  70% {
+    opacity: 0.6;
+    transform: scale(1.01) rotate(0.3deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.03) rotate(0.5deg);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes copied-note {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) rotate(-6deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) rotate(-4deg);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) rotate(-4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-box.just-copied::before,
+  .code-box.just-copied::after {
+    animation: none;
+    opacity: 0;
+  }
+  .code-box .copied-note {
+    animation: none;
   }
 }

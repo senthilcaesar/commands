@@ -33,6 +33,7 @@
   --hatch-soft: rgba(229, 228, 226, 0.12);
   --platinum-wash: rgba(229, 228, 226, 0.05);
   --title-wash: rgba(229, 228, 226, 0.08);
+  --badge-fill: rgba(229, 228, 226, 0.14);
   --grain-blend: screen;
   --grain-opacity: 0.18;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -65,6 +66,7 @@
   --hatch-soft: rgba(168, 169, 173, 0.32);
   --platinum-wash: rgba(229, 228, 226, 0.55);
   --title-wash: rgba(214, 213, 210, 0.45);
+  --badge-fill: rgba(200, 199, 196, 0.55);
   --grain-blend: multiply;
   --grain-opacity: 0.16;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
