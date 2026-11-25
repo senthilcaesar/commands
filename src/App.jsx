@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import TechStackModal from './components/TechStackModal';
 import CommandCard from './components/CommandCard';
+import CommandModal from './components/CommandModal';
 import { Terminal as TerminalIcon } from 'lucide-react';
 
 const CATEGORY_ORDER = ['claude', 'build', 'cloud', 'git', 'linux', 'npm'];
@@ -187,6 +188,8 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
+  const [selectedCommand, setSelectedCommand] = useState(null);
+  const closeCommand = React.useCallback(() => setSelectedCommand(null), []);
   const [isSidebarOpen, setIsSidebarOpen] = useState(
     () => localStorage.getItem('sidebar') !== 'collapsed',
   );
@@ -299,7 +302,12 @@ function App() {
                 }
               >
                 {filteredCommands.map((cmd) => (
-                  <CommandCard key={cmd.id} command={cmd} viewMode={viewMode} />
+                  <CommandCard
+                    key={cmd.id}
+                    command={cmd}
+                    viewMode={viewMode}
+                    onOpen={setSelectedCommand}
+                  />
                 ))}
               </div>
             ) : (
@@ -327,6 +335,12 @@ function App() {
             )}
           </div>
         </div>
+
+        <CommandModal
+          key={selectedCommand?.id}
+          command={selectedCommand}
+          onClose={closeCommand}
+        />
 
         <TechStackModal
           isOpen={isTechStackOpen}

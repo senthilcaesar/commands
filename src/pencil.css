@@ -774,3 +774,71 @@ body::after {
     animation: none;
   }
 }
+
+/* ---------- Command card: enlarged view ---------- */
+.modal-content.command-modal {
+  max-width: 820px;
+  max-height: 88vh;
+  /* Same paper as the small card: card tint laid over the page colour,
+     because --bg-card is slightly see-through and the cards sit on the page */
+  background:
+    linear-gradient(var(--bg-card), var(--bg-card)),
+    var(--bg-main) !important;
+  border: var(--glass-border) !important;
+  box-shadow: 5px 7px 0 -1px var(--pencil-light) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.command-modal-title {
+  font-family: var(--font-title);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.05;
+  width: fit-content;
+  max-width: calc(100% - 2.5rem);
+  padding-bottom: 0.35rem;
+  background: var(--scribble) no-repeat left bottom / 100% 8px;
+}
+
+.command-modal .category-tag {
+  font-size: 1.4rem !important;
+}
+
+.command-modal-desc {
+  font-size: 1.5rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.command-modal-code {
+  margin-top: 0.5rem;
+}
+.command-modal-code code {
+  font-size: 1.25rem !important;
+  line-height: 1.6;
+  padding-top: 0.1rem;
+}
+
+.command-modal-link {
+  font-size: 1.3rem !important;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+@media (max-width: 640px) {
+  .modal-content.command-modal {
+    padding: 1.5rem;
+  }
+  .command-modal-title {
+    font-size: 2.4rem;
+  }
+  .command-modal-desc {
+    font-size: 1.25rem;
+  }
+  .command-modal-code code {
+    font-size: 1.05rem !important;
+  }
+}

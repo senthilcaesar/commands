@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import SyntaxHighlighter from './SyntaxHighlighter';
 
-const CommandCard = ({ command, viewMode = 'grid' }) => {
+const CommandCard = ({ command, viewMode = 'grid', onOpen }) => {
   const { category, command: cmdText, snippet, description, link } = command;
   const [copied, setCopied] = useState(false);
 
@@ -12,6 +12,22 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // Clicking anywhere on the card (except its link or copy button) opens it large
+  const openProps = {
+    role: 'button',
+    tabIndex: 0,
+    'aria-label': `Open ${cmdText}`,
+    onClick: () => onOpen?.(command),
+    onKeyDown: (e) => {
+      if (e.target !== e.currentTarget) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onOpen?.(command);
+      }
+    },
+  };
+  const stop = (e) => e.stopPropagation();
 
   // Sits inside the code box, to the right of the snippet
   const copyButton = (
@@ -28,7 +44,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
   // --- List View Layout ---
   if (viewMode === 'list') {
     return (
-      <div className="command-card command-card-list glass p-4 rounded-xl flex items-center gap-6 relative group border border-[var(--border-subtle)]">
+      <div {...openProps} className="command-card command-card-list cursor-pointer glass p-4 rounded-xl flex items-center gap-6 relative group border border-[var(--border-subtle)]">
         <div className="flex-none w-24">
           <span className="category-tag" data-cat={category}>{category}</span>
         </div>
@@ -39,6 +55,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
+              onClick={stop}
               className="cmd-link font-semibold text-orange hover:text-orange-dark text-sm truncate block transition-colors w-fit" 
               style={{ textDecoration: 'none' }}
             >
@@ -64,7 +81,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
 
   // --- Grid View Layout ---
   return (
-    <div className="command-card glass p-5 rounded-2xl flex flex-col gap-4 hover:translate-y-[-2px] transition-all duration-300 relative border border-[var(--border-subtle)] hover:border-blue-500/30 shadow-md hover:shadow-xl">
+    <div {...openProps} className="command-card cursor-pointer glass p-5 rounded-2xl flex flex-col gap-4 hover:translate-y-[-2px] transition-all duration-300 relative border border-[var(--border-subtle)] hover:border-blue-500/30 shadow-md hover:shadow-xl">
       <div className="flex justify-between items-start">
         <div className="flex flex-col gap-1 flex-1 min-w-0 pr-2">
           <span className="category-tag" data-cat={category}>{category}</span>
@@ -73,6 +90,7 @@ const CommandCard = ({ command, viewMode = 'grid' }) => {
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
+              onClick={stop}
               className="cmd-link font-semibold text-orange hover:text-orange-dark leading-tight transition-colors block w-fit" 
               style={{ textDecoration: 'none' }}
             >
